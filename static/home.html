@@ -74,6 +74,7 @@
 				method="POST"
 				enctype="multipart/form-data"
 				name="createPostForm"
+				id="createPostForm"
 			>
 				<label for="username">Username</label>
 				<input type="text" id="username" name="username" required />
@@ -96,6 +97,35 @@
 			<h1>Posts</h1>
 			<div id="posts-container"></div>
 			<script>
+				document.getElementById("createPostForm").addEventListener("submit", async function (event) {
+					event.preventDefault(); // Prevent default form submission
+
+					const form = event.target;
+					const formData = new FormData(form); // Create FormData object with form data
+
+					try {
+						const response = await fetch(form.action, {
+							method: form.method,
+							body: formData,
+						});
+
+						if (!response.ok) {
+							throw new Error(`Error: ${response.statusText}`);
+						}
+
+						const result = await response.json();
+						if (result.success==="true"){
+							console.log("Success:", result);
+							location.reload();
+						}
+						else{
+							alert("Error in form")
+						}
+
+					} catch (error) {
+						console.error("Error:", error);
+					}
+				});
 				// Reset the form
 				document.forms['createPostForm'].reset();
 				async function fetchPosts() {
