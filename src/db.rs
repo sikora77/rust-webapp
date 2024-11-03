@@ -1,5 +1,5 @@
-use rocket_db_pools::diesel::{prelude::*, PgPool};
-use rocket_db_pools::{Connection, Database};
+use rocket_db_pools::diesel::PgPool;
+use rocket_db_pools::Database;
 
 #[derive(Database)]
 #[database("my_db")]

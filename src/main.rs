@@ -1,27 +1,24 @@
-use dotenv::dotenv;
+use db::Db;
 use rocket_db_pools::Database;
-use std::env;
 
 mod db;
 mod models;
+mod routes;
 mod schema;
 
-use rocket::{get, launch, routes, Rocket};
+use rocket::{
+	fs::{relative, FileServer},
+	launch, routes,
+};
+use routes::{create_post, get_posts, home};
 
-#[get("/")]
-fn index() -> &'static str {
-	"Hello, world!"
-}
-
-#[get("/home")]
-fn home() -> &'static str {
-	"This is home"
-}
 #[launch]
 fn rocket() -> _ {
 	rocket::build()
-		.attach(db::Db::init())
-		.mount("/", routes![index])
+		.attach(Db::init())
+		.mount("/images", FileServer::from(relative!("images")))
+		.mount("/api", routes![create_post, get_posts])
+		.mount("/", routes![home])
 }
 
 // fn main() {

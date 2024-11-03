@@ -7,7 +7,9 @@ diesel::table! {
         publish_date -> Timestamp,
         #[max_length = 50]
         username -> Varchar,
-        image_oid -> Nullable<Oid>,
-        avatar_oid -> Nullable<Oid>,
+        #[max_length = 255]
+        image_path -> Nullable<Varchar>,
+        #[max_length = 255]
+        avatar_path -> Nullable<Varchar>,
     }
 }
