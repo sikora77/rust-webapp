@@ -73,6 +73,7 @@
 				action="/api/create_post"
 				method="POST"
 				enctype="multipart/form-data"
+				name="createPostForm"
 			>
 				<label for="username">Username</label>
 				<input type="text" id="username" name="username" required />
@@ -95,6 +96,8 @@
 			<h1>Posts</h1>
 			<div id="posts-container"></div>
 			<script>
+				// Reset the form
+				document.forms['createPostForm'].reset();
 				async function fetchPosts() {
 					try {
 						const response = await fetch('/api/get_posts');
@@ -120,7 +123,7 @@
 						postTitleDiv.className = 'postTitle';
 						const avatar = document.createElement('img');
 						avatar.src = post.avatar_path;
-						avatar.alt = `${post.username}'s avatar`;
+						avatar.alt = `User's avatar`;
 						avatar.className = 'avatar';
 						avatar.style =
 							'max-width: 40px;max-height: 40px;object-fit: scale-down;width:100%;height:100%; padding:8px;';

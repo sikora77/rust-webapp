@@ -114,7 +114,7 @@ pub async fn create_post(
 		Some(x) => x,
 		None => return Json(json!({"error":"no username in form"})),
 	};
-	let avatar_url = multipart_form_data
+	let mut avatar_url = multipart_form_data
 		.texts
 		.remove("avatar_url")
 		.and_then(|texts| texts.into_iter().next())
@@ -128,6 +128,17 @@ pub async fn create_post(
 		Some(x) => x,
 		None => return Json(json!({"error":"no body in form"})),
 	};
+	avatar_url = match avatar_url {
+		Some(av) => {
+			if av == "" {
+				None
+			} else {
+				Some(av)
+			}
+		}
+		None => None,
+	};
+	println!("{:?}", avatar_url);
 	let avatar_filepath: Option<String> = match process_avatar(&avatar_url).await {
 		Ok(file_uuid) => file_uuid,
 		Err(error) => return Json(json!({"error":format!("{:?}",error)})),
