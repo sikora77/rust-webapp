@@ -1,2 +1,2 @@
 [global.databases]
-my_db = { url = "postgres://postgres:admin@localhost/blogposts" }
+my_db = { url = "postgres://postgres@localhost/blogposts" }
