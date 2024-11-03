@@ -14,8 +14,8 @@ pub struct Blogpost {
 	pub body: String,
 	pub publish_date: NaiveDateTime,
 	pub username: String,
-	pub avatar_path: Option<String>,
 	pub image_path: Option<String>,
+	pub avatar_path: Option<String>,
 }
 
 impl Blogpost {

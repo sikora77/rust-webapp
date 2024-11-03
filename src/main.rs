@@ -17,6 +17,7 @@ fn rocket() -> _ {
 	rocket::build()
 		.attach(Db::init())
 		.mount("/images", FileServer::from(relative!("images")))
+		.mount("/avatars", FileServer::from(relative!("avatars")))
 		.mount("/api", routes![create_post, get_posts])
 		.mount("/", routes![home])
 }
